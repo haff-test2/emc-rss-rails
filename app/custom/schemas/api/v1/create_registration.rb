@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Schemas
   module Api
     module V1
@@ -14,9 +16,7 @@ module Schemas
         end
 
         rule(:password) do
-          if value.length < 6
-            key.failure 'too short'
-          end
+          key.failure 'too short' if value.length < 6
         end
       end
     end

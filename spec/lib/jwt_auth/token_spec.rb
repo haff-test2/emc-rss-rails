@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe JwtAuth::Token do
@@ -25,13 +27,13 @@ RSpec.describe JwtAuth::Token do
     subject { token.expire_on?(context_timestamp) }
 
     context 'after date' do
-      let(:context_timestamp) { context_expire_at + 86400 }
+      let(:context_timestamp) { context_expire_at + 86_400 }
 
       it { expect(subject).to be_a TrueClass }
     end
 
     context 'before date' do
-      let(:context_timestamp) { context_expire_at - 86400 }
+      let(:context_timestamp) { context_expire_at - 86_400 }
 
       it { expect(subject).to be_a FalseClass }
     end
@@ -47,13 +49,13 @@ RSpec.describe JwtAuth::Token do
     subject { token.expired? }
 
     context 'expired' do
-      let(:context_expire_at) { Time.current.to_i - 86400 }
+      let(:context_expire_at) { Time.current.to_i - 86_400 }
 
       it { expect(subject).to be_a TrueClass }
     end
 
     context 'not expired' do
-      let(:context_expire_at) { Time.current.to_i + 86400 }
+      let(:context_expire_at) { Time.current.to_i + 86_400 }
 
       it { expect(subject).to be_a FalseClass }
     end

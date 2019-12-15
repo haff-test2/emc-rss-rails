@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+class CreateUserFeeds < ActiveRecord::Migration[6.0]
+  def change
+    create_table :user_feeds do |t|
+      t.belongs_to :user
+      t.belongs_to :feed
+
+      t.timestamps
+    end
+  end
+end

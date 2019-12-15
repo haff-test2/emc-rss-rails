@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class SessionsController < ApplicationController
@@ -5,7 +7,6 @@ module Api
 
       def create
         res = Schemas::Api::V1::CreateRegistration.new.call(params.to_unsafe_h)
-        byebug
 
         if res.errors.present?
           render json: res.errors.to_h, status: 400

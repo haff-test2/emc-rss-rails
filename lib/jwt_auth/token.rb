@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JwtAuth
   class Token
     attr_reader :user_id, :expire_at
@@ -15,7 +17,7 @@ module JwtAuth
     end
 
     def expired?
-      self.expire_on?(Time.current.to_i)
+      expire_on?(Time.current.to_i)
     end
 
     def expire_on?(timestamp)
