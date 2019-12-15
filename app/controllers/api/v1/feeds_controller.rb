@@ -7,7 +7,7 @@ module Api
         feed_ids = UserFeed.where(user_id: current_user.id).distinct(:feed_id).pluck(:feed_id)
         feeds = Feed.where(id: feed_ids).entries
 
-        render json: feeds, status: 200, serialiaer: FeedSerializer
+        render json: feeds, each_serializer: FeedSerializer
       end
 
       def create
@@ -15,7 +15,7 @@ module Api
         add_result = feed_manager.add_feed(params[:feed_url])
         if add_result[:success]
           # add async task for load feed data
-          render json: add_result[:resource].feed, status: 201, serialiaer: FeedSerializer
+          render json: add_result[:resource].feed, status: 201, serializer: FeedSerializer
         else
           render json: add_result[:errors], status: 422
         end

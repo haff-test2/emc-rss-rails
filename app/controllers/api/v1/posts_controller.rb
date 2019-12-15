@@ -7,7 +7,7 @@ module Api
         feed_ids = Feeds::Manager.new(user_id: current_user.id).sync
         posts = FeedPost.where(feed_id: feed_ids).order(published_at: :desc).limit(10)
 
-        render json: posts, status: 200, serialiaer: PostSerializer
+        render json: posts, status: 200, each_serializer: PostSerializer
       end
     end
   end
