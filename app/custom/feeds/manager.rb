@@ -4,7 +4,7 @@ module Feeds
   class Manager
     def initialize(user_id: nil, feed_ids: [])
       @user_id = user_id
-      @feed_ids = feed_ids || UserFeed.where(user_id: @user_id).pluck(:feed_id)
+      @feed_ids = feed_ids
     end
 
     def add_feed(url)

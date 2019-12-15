@@ -9,7 +9,7 @@ module Schemas
         end
 
         rule(:id) do
-          key.failure 'must be valid id' if value.negative?
+          key.failure 'must be valid id' unless value.positive?
         end
       end
     end
