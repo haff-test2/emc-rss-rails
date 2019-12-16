@@ -39,7 +39,7 @@ module EmcRssRails
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins ENV.fetch('CORS_LIST', '*')
+        origins ENV.fetch('CORS_LIST', '')
         resource '*', headers: :any, methods: %i[post put get delete options], max_age: 0, credentials: true
       end
     end

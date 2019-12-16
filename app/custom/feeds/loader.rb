@@ -7,9 +7,9 @@ module Feeds
     end
 
     def call
-      resp = Faraday.get @feed.url
+      resp = RestClient.get @feed.url
       # TODO: calc fails and disable feed on multiple failures
-      return false unless resp.success?
+      return false unless resp.code.between?(200, 207)
 
       feed = RSS::Parser.parse(resp.body)
       chan_title = feed.channel.title

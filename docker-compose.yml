@@ -1,0 +1,40 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:12.1
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+
+  back:
+    image: ${IMAGE_PROD_BACK}
+    container_name: rss-back
+    restart: on-failure
+    stop_signal: SIGINT
+    stop_grace_period: 10s
+    environment:
+      - RAILS_ENV=${RAILS_ENV}
+      - DB_USER=${DB_USER}
+      - DB_NAME=${DB_NAME}
+      - DB_PASS=${DB_PASS}
+      - DB_HOST=postgres
+      - CORS_LIST=${CORS_LIST}
+      - PUMA_MAX_THREADS=${PUMA_MAX_THREADS}
+      - PUMA_Min_THREADS=${PUMA_MIN_THREADS}
+      - PUMA_WORKERS=${PUMA_WORKERS}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+    volumes:
+      - ${LOGS_FOLDER}:/app/log
+    ports:
+      - "3000:3000"
+    command: ["bundle", "exec", "puma", "-C", "/app/config/puma.rb"]
+
+  front:
+    image: ${IMAGE_PROD_FRONT}
+    restart: on-failure
+    environment:
+      - VUE_APP_BACK_URL=back
+    ports:
+      - "8080:8080"
