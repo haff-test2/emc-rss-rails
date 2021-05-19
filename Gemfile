@@ -11,7 +11,7 @@ gem 'rails', '~> 6.0.2'
 # Use Puma as the app server
 gem 'active_model_serializers'
 gem 'dry-validation'
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.3'
 # gem 'redis', '~> 4.0'
 
 # Use Active Storage variant
